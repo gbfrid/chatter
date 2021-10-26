@@ -17,23 +17,6 @@
                         </div>
                     @endif
 
-
-                        <form action="" method="post">
-                            @csrf
-                            <div class="form-group">
-                                <input name="text"
-                                          id="text"
-                                          cols="30"
-                                          rows="4"
-                                          placeholder="Send a message!"
-                                         />
-                                <button type="submit" class="btn bg-primary text-white">Send!</button>
-
-
-                            </div>
-
-                        </form>
-
                 </div>
             </div>
         </div>
