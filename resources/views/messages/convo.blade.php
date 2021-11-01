@@ -4,17 +4,15 @@
 
     <div>
         <div>
-
-            <a class="nav-link mb-2 border border-primary active" id="convo-user-tab" href="/">
+            <a class="nav-link mb-2 border border-primary" id="convo-user-tab" href="/">
                 All</a>
         </div>
         @if ($users->count())
 
             @foreach($users as $user)
                 <div>
-
-                    <a class="nav-link mb-2 border border-primary" id="convo-user-tab"
-                       href="/{{ $user->id }}">{{ $user->name }}</a>
+                    <a class="nav-link mb-2 border border-primary {{ (string)$user->id === $id ? 'active' : '' }}"
+                       id="convo-user-tab" href="/{{ $user->id }}">{{ $user->name }}</a>
                 </div>
             @endforeach
         @endif
@@ -26,26 +24,23 @@
 @section('content')
     <div class="flex-column">
         <div class="navbar-nav-scroll">
-
-
             @if ($messages->count())
                 @foreach($messages as $message)
-                    <div class="mb-2 p-2 bg-info rounded">
-                        <div>
-                            {{ $message->text }}
-
+                    @if((string)$message->user_id === $id || $user->id === $message->target_id)
+                        <div class="mb-2 p-2 bg-info rounded">
+                            <div>
+                                <div>
+                                    {{ $message->target_id }}
+                                </div>
+                                {{ $message->text }}
+                            </div>
+                            <div class="small text-right">
+                                {{ $message->user->name }}
+                            </div>
                         </div>
+                    @endif
 
-                        <div class="small text-right">
-                            {{ $message->user->name }}
-
-                        </div>
-
-
-                    </div>
                 @endforeach
-
-
             @else
                 <p>No message!</p>
             @endif

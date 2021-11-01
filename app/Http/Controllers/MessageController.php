@@ -20,24 +20,36 @@ class MessageController extends Controller
     public function index()
     {
         $messages = Message::all();
+        $users = User::all();
         return view('messages.index', [
             'messages' => $messages,
+            'users' => $users,
         ]);
     }
 
 
-    public function store(Request $request)
+    public function store(Request $request, $id = 0)
     {
-
 
         $request->user()->messages()->create([
             'user_id' => auth()->id(),
-            'target_id' => 2,
+            'target_id' => $id,
             'text' => $request->text
 
         ]);
 
         return back();
+    }
+
+    public function convo($id)
+    {
+        $messages = Message::all();
+        $users = User::all();
+        return view('messages.convo', [
+            'id' => $id,
+            'messages' => $messages,
+            'users' => $users,
+        ]);
     }
 
 
