@@ -3,19 +3,24 @@
 @section('sidebar')
 
     <div>
-        <div>
-            <a class="nav-link mb-2 border border-primary" id="convo-user-tab" href="/">
-                All</a>
-        </div>
+
         @if ($users->count())
 
             @foreach($users as $user)
-                <div>
-                    <a class="nav-link mb-2 border border-primary {{ (string)$user->id === $id ? 'active' : '' }}"
-                       id="convo-user-tab" href="/{{ $user->id }}">{{ $user->name }}</a>
-                </div>
-            @endforeach
-        @endif
+                @if($user->id !== $current_user)
+                    <div>
+                        <a class="nav-link mb-2 border border-primary {{ (string)$user->id === $id ? 'active' : '' }}"
+                           id="convo-user-tab" href="/{{ $user->id }}">{{ $user->name }}</a>
+                    </div>
+                @endif
+                    @endforeach
+
+
+                @else
+                    <div>
+                        Make some friends!
+                    </div>
+                @endif
 
     </div>
 
@@ -26,11 +31,10 @@
         <div class="navbar-nav-scroll">
             @if ($messages->count())
                 @foreach($messages as $message)
-                    @if((string)$message->user_id === $id || $user->id === $message->target_id)
+                    @if(($current_user === $message->user_id && (string)$message->target_id === $id) || ($current_user === $message->target_id && (string)$message->user_id === $id))
                         <div class="mb-2 p-2 bg-info rounded">
                             <div>
                                 <div>
-                                    {{ $message->target_id }}
                                 </div>
                                 {{ $message->text }}
                             </div>

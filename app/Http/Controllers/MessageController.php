@@ -19,11 +19,13 @@ class MessageController extends Controller
 
     public function index()
     {
-        $messages = Message::all();
+        $current_user = auth()->id();
         $users = User::all();
+
         return view('messages.index', [
-            'messages' => $messages,
+            'current_user' => $current_user,
             'users' => $users,
+
         ]);
     }
 
@@ -45,10 +47,12 @@ class MessageController extends Controller
     {
         $messages = Message::all();
         $users = User::all();
+        $current_user = auth()->id();
         return view('messages.convo', [
             'id' => $id,
             'messages' => $messages,
             'users' => $users,
+            'current_user' => $current_user,
         ]);
     }
 
