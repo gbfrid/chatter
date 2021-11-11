@@ -40,7 +40,7 @@ class MessageController extends Controller
 
         ]);
 
-        broadcast(new MessageSent(auth()->id(), $request->text))->toOthers();
+//        broadcast(new MessageSent(auth()->id(), $request->text))->toOthers();
 
         return back();
     }
@@ -60,3 +60,5 @@ class MessageController extends Controller
 
 
 }
+
+
