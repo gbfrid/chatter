@@ -31,11 +31,10 @@
         <div class="navbar-nav-scroll">
             @if ($messages->count())
                 @foreach($messages as $message)
-                    @if(($current_user === $message->user_id && (string)$message->target_id === $id) || ($current_user === $message->target_id && (string)$message->user_id === $id))
+                    @if(((string)$current_user === $message->user_id && (string)$message->target_id === $id) ||
+                        ((string)$current_user === $message->target_id && $message->user_id === $id))
                         <div class="mb-2 p-2 bg-info rounded">
                             <div>
-                                <div>
-                                </div>
                                 {{ $message->text }}
                             </div>
                             <div class="small text-right">
